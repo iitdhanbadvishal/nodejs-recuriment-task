@@ -9,7 +9,7 @@ beforeAll;
 describe("create movies for users", () => {
   let mongo = "";
   beforeAll(async () => {
-    mongo = new MongoMemoryServer();
+    mongo = await MongoMemoryServer.create();
     const mongoUri = await mongo.getUri();
 
     await mongoose.connect(mongoUri, {
