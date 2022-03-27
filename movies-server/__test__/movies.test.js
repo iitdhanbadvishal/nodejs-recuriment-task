@@ -10,7 +10,7 @@ describe("get /test", () => {
 
     test("testing env variable ", async () => {
       const response = await request(app).get("/test2");
-      expect(response.status).toBe(500);
+      expect(response.status).toBe(200);
     });
   });
 });

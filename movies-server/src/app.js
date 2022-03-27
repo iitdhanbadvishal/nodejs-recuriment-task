@@ -96,9 +96,14 @@ app.get("/test2", async (req, res) => {
     const moviDetails = await axios.get(
       `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=$no entry`
     );
-    return res.status(200).send({ message: "success" });
+    const { Title } = moviDetails.data;
+    if (Title === "No Entry") {
+      return res.status(200).send({ message: "success" });
+    } else {
+      return res.status(500).send({ message: "fail" });
+    }
   } catch (error) {
-    res.status(500).send(error.message);
+    return res.status(500).send(error.message);
   }
 });
 
