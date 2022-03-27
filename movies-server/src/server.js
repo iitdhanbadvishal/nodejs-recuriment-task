@@ -27,7 +27,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("**DB CONNECTED**"))
+  .then(() => console.log("***DB CONNECTED***"))
   .catch((err) => console.log("DB CONNECTION ERR => ", err));
 
 app.use(bodyParser.json());
