@@ -9,6 +9,7 @@ beforeAll;
 describe("create movies for users", () => {
   let mongo = "";
   beforeAll(async () => {
+    process.env.API_KEY = "2c46c474";
     mongo = await MongoMemoryServer.create();
     const mongoUri = await mongo.getUri();
 

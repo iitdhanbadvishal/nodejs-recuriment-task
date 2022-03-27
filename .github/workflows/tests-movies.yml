@@ -1,13 +1,10 @@
 name: tests-movies
 
-on:
-  pull_request
-  
+on: pull_request
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      API_KEY: 2c46c474
     steps:
       - uses: actions/checkout@v2
       - run: cd movies-server && npm install && npm run test:ci
