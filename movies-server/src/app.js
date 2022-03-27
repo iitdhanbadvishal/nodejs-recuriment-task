@@ -12,11 +12,13 @@ app.post("/movies", async (req, res) => {
       return res.status(500).json({ error: "No body found" });
     }
 
-    const { userId, role } = req.payload;
+    // const { userId, role } = req.payload;
+    const userId = "test";
+    const role = "basic";
     const { movieTitle } = req.body;
 
     if (!movieTitle) {
-      return res.status(400).json({ error: "Enter movi title" });
+      return res.status(201).json({ error: "Enter movi title" });
     }
 
     const createdTime = Math.round(new Date().getTime());
