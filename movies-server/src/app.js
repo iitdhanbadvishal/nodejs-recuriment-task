@@ -9,7 +9,7 @@ const app = express();
 app.post("/movies", async (req, res) => {
   try {
     if (!req.body) {
-      return res.status(400).json({ error: "No body found" });
+      return res.status(500).json({ error: "No body found" });
     }
 
     const { userId, role } = req.payload;

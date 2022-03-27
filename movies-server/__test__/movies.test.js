@@ -28,6 +28,6 @@ describe("create movies for users", () => {
     const response = await request(app).post("/movies").send({
       movieTitle: "No entry",
     });
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(500);
   });
 });
