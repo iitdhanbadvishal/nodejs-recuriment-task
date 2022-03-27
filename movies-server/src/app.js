@@ -74,11 +74,11 @@ app.post("/movies", async (req, res) => {
       .status(200)
       .json({ message: `Successfully created a movie with title ${Title}` });
   } catch (error) {
-    return res.status(401).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 });
 
-app.get("/movies", verifyAccessToken, async (req, res) => {
+app.get("/movies", async (req, res) => {
   try {
     const { userId } = req.payload;
 
