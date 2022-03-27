@@ -3,9 +3,6 @@ const app = require("../src/app");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongoose = require("mongoose");
 
-let mongo = "";
-beforeAll;
-
 describe("create movies for users", () => {
   let mongo = "";
   beforeAll(async () => {

@@ -9,7 +9,7 @@ const app = express();
 app.post("/movies", async (req, res) => {
   try {
     // if (!req.body) {
-    //   return res.status(500).json({ error: "No body found" });
+    //   return res.status(400).json({ error: "No body found" });
     // }
 
     // const { userId, role } = req.payload;
@@ -18,7 +18,7 @@ app.post("/movies", async (req, res) => {
     const { movieTitle } = req.body;
 
     if (!movieTitle) {
-      return res.status(201).json({ error: "Enter movi title" });
+      return res.status(400).json({ error: "Enter movi title" });
     }
 
     const createdTime = Math.round(new Date().getTime());
@@ -49,7 +49,7 @@ app.post("/movies", async (req, res) => {
         .json({ message: `Already created movie with title ${movieTitle}` });
 
     const moviDetails = await axios.get(
-      `http://www.omdbapi.com/?apikey=2c46c474&t=${movieTitle}`
+      `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=${movieTitle}`
     );
 
     if (moviDetails.data.Response == "False") {
