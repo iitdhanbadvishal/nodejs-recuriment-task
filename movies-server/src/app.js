@@ -1,23 +1,10 @@
 const express = require("express");
 const axios = require("axios");
 const Movi = require("./models/movies");
-const { verifyAccessToken, role } = require("./middleware/auth");
+const { verifyAccessToken } = require("./middleware/auth");
 const { capitalizeFirstLetter } = require("./utils/utils");
 
 const app = express();
-const API_KEY="2c46c474"
-
-// if (!process.env.MONGO_URI) {
-//   throw new Error("MONGO_URI must be defined");
-// }
-
-// if (!process.env.API_KEY) {
-//   throw new Error("API_KEY must be defined");
-// }
-
-// if (!process.env.JWT_SECRET) {
-//   throw new Error("JWT_SECRET must be defined");
-// }
 
 app.post("/movies", verifyAccessToken, async (req, res) => {
   try {
@@ -60,7 +47,7 @@ app.post("/movies", verifyAccessToken, async (req, res) => {
         .json({ message: `Already created movie with title ${movieTitle}` });
 
     const moviDetails = await axios.get(
-      `http://www.omdbapi.com/?apikey=${API_KEY}&t=${movieTitle}`
+      `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=${movieTitle}`
     );
 
     if (moviDetails.data.Response == "False") {
@@ -99,10 +86,6 @@ app.get("/movies", verifyAccessToken, async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-
-// app.listen(PORT, () => {
-//   console.log(`app is running on port ${PORT}`);
-// });
 
 app.get("/test",(req,res) => {
     return res.status(200).send({message:"success"})
