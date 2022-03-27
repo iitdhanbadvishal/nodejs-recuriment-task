@@ -87,8 +87,19 @@ app.get("/movies", verifyAccessToken, async (req, res) => {
   }
 });
 
-app.get("/test",(req,res) => {
-    return res.status(200).send({message:"success"})
-})
+app.get("/test", (req, res) => {
+  return res.status(200).send({ message: "success" });
+});
+
+app.get("/test2", async (req, res) => {
+  try {
+    const moviDetails = await axios.get(
+      `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=$no entry`
+    );
+    return res.status(200).send({ message: "success" });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 module.exports = app;
