@@ -6,7 +6,7 @@ const { capitalizeFirstLetter } = require("./utils/utils");
 
 const app = express();
 
-app.post("/movies", verifyAccessToken, async (req, res) => {
+app.post("/movies", async (req, res) => {
   try {
     if (!req.body) {
       return res.status(400).json({ error: "No body found" });

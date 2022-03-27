@@ -1,16 +1,32 @@
 const request = require("supertest");
 const app = require("../src/app");
+const { MongoMemoryServer } = require("mongodb-memory-server");
+const mongoose = require("mongoose");
 
-describe("get /test", () => {
-  describe("testing the test", () => {
-    test("response from test", async () => {
-      const response = await request(app).get("/test");
-      expect(response.status).toBe(200);
-    });
+let mongo = "";
+beforeAll;
 
-    test("testing env variable ", async () => {
-      const response = await request(app).get("/test2");
-      expect(response.status).toBe(200);
+describe("create movies for users", () => {
+  let mango = "";
+  beforeAll(async () => {
+    mongo = new MongoMemoryServer();
+    const mongoUri = await mongo.getUri();
+
+    await mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
+  });
+
+  afterAll(async () => {
+    await mongo.stop();
+    await mongoose.connection.close();
+  });
+
+  test("Should create a movie for authorized user with movie title", async () => {
+    const response = await request(app).post("/movies").send({
+      movieTitle: "No entry",
+    });
+    expect(response.statusCode).toBe(200);
   });
 });
