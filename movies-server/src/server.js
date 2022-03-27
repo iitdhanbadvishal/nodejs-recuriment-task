@@ -23,13 +23,10 @@ if (!process.env.JWT_SECRET) {
 
 // db
 mongoose
-  .connect(
-    "mongodb+srv://vishal:vishal@cluster0.tuv3n.mongodb.net/nodeJsTask?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("**DB CONNECTED**"))
   .catch((err) => console.log("DB CONNECTION ERR => ", err));
 
@@ -77,7 +74,7 @@ app.post("/movies", verifyAccessToken, async (req, res) => {
         .json({ message: `Already created movie with title ${movieTitle}` });
 
     const moviDetails = await axios.get(
-      `http://www.omdbapi.com/?apikey=2c46c474&t=${movieTitle}`
+      `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=${movieTitle}`
     );
 
     if (moviDetails.data.Response == "False") {
