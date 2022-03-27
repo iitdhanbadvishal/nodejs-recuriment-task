@@ -49,7 +49,7 @@ app.post("/movies", async (req, res) => {
         .json({ message: `Already created movie with title ${movieTitle}` });
 
     const moviDetails = await axios.get(
-      `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=${movieTitle}`
+      `http://www.omdbapi.com/?apikey=2c46c474&t=${movieTitle}`
     );
 
     if (moviDetails.data.Response == "False") {
