@@ -2,7 +2,6 @@ const JWT = require("jsonwebtoken");
 const createError = require("http-errors");
 
 const { JWT_SECRET } = process.env;
-// const JWT_SECRET = "abc";
 
 module.exports = {
   verifyAccessToken: (req, res, next) => {

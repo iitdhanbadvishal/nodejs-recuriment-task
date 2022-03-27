@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
+    "test:ci": "jest",
     "start": "nodemon ./src/server.js./src/server.js"
   },
   "keywords": [],
@@ -17,7 +19,14 @@
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
-    "mongoose": "^6.2.8",
+    "mongoose": "^6.2.8"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@types/supertest": "^2.0.12",
+    "jest": "^27.5.1",
+    "mongodb-memory-server": "^8.4.1",
+    "supertest": "^6.2.2",
     "nodemon": "^2.0.15"
   }
 }
