@@ -8,9 +8,9 @@ const app = express();
 
 app.post("/movies", async (req, res) => {
   try {
-    if (!req.body) {
-      return res.status(500).json({ error: "No body found" });
-    }
+    // if (!req.body) {
+    //   return res.status(500).json({ error: "No body found" });
+    // }
 
     // const { userId, role } = req.payload;
     const userId = "test";
