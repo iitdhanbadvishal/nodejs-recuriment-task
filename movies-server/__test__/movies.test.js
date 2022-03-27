@@ -70,13 +70,10 @@ describe("insert", () => {
     await connection.close();
   });
 
-  it("should insert a doc into collection", async () => {
-    const users = db.collection("users");
-
-    const mockUser = { _id: "some-user-id", name: "John" };
-    await users.insertOne(mockUser);
-
-    const insertedUser = await users.findOne({ _id: "some-user-id" });
-    expect(insertedUser).toEqual(mockUser);
+  it("Should create a movie for authorized user with movie title", async () => {
+    const response = await request(app).post("/movies").send({
+      movieTitle: "No entry",
+    });
+    expect(response.statusCode).toBe(200);
   });
 });
