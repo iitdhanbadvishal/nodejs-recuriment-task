@@ -7,7 +7,7 @@ let mongo = "";
 beforeAll;
 
 describe("create movies for users", () => {
-  let mango = "";
+  let mongo = "";
   beforeAll(async () => {
     mongo = new MongoMemoryServer();
     const mongoUri = await mongo.getUri();
