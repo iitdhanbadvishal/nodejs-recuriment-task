@@ -3,7 +3,7 @@ FROM node:14.15-alpine
 WORKDIR /app
 
 COPY ./package.json ./package-lock.json ./
-RUN npm install
+RUN npm install --only=prod
 
 RUN mkdir ./src
 COPY ./src ./src
