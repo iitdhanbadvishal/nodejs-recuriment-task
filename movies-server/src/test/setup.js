@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 
 let mongo = "";
 beforeAll(async () => {
-  process.env.JWT_KEY = "asdfasdf";
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+  process.env.JWT_KEY = "secret";
+  process.env.API_KEY = "2c46c474";
 
   mongo = await MongoMemoryServer.create();
   const mongoUri = await mongo.getUri();
@@ -16,13 +16,13 @@ beforeAll(async () => {
   });
 });
 
-// beforeEach(async () => {
-//   const collections = await mongoose.connection.db.collections();
+beforeEach(async () => {
+  const collections = await mongoose.connection.db.collections();
 
-//   for (let collection of collections) {
-//     await collection.deleteMany({});
-//   }
-// });
+  for (let collection of collections) {
+    await collection.deleteMany({});
+  }
+});
 
 afterAll(async () => {
   await mongoose.connection.close();

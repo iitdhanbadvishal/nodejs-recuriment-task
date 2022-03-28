@@ -5,17 +5,17 @@ const mongoose = require("mongoose");
 
 const PORT = 3001;
 
-// if (!process.env.MONGO_URI) {
-//   throw new Error("MONGO_URI must be defined");
-// }
+if (!process.env.MONGO_URI) {
+  throw new Error("MONGO_URI must be defined");
+}
 
-// if (!process.env.API_KEY) {
-//   throw new Error("API_KEY must be defined");
-// }
+if (!process.env.API_KEY) {
+  throw new Error("API_KEY must be defined");
+}
 
-// if (!process.env.JWT_SECRET) {
-//   throw new Error("JWT_SECRET must be defined");
-// }
+if (!process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET must be defined");
+}
 
 // db
 mongoose
