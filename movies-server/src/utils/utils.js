@@ -5,3 +5,15 @@ module.exports.capitalizeFirstLetter = function (string) {
   }
   return strArr.join(" ");
 };
+
+module.exports.getMonth = function () {
+  const createdTime = Math.round(new Date().getTime());
+  var date = new Date(createdTime);
+  return date.getMonth() + 1;
+};
+
+module.exports.getYear = function () {
+  const createdTime = Math.round(new Date().getTime());
+  var date = new Date(createdTime);
+  return (year = date.getFullYear());
+};

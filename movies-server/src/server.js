@@ -1,8 +1,7 @@
-const app = require("./app")
+const app = require("./app");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-
 
 const PORT = 3001;
 
@@ -18,7 +17,6 @@ if (!process.env.JWT_SECRET) {
   throw new Error("JWT_SECRET must be defined");
 }
 
-
 // db
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -30,8 +28,6 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(cors());
-
-
 
 app.listen(PORT, () => {
   console.log(`app is running on port ${PORT}`);

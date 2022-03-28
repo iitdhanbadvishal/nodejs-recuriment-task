@@ -1,51 +1,38 @@
 const express = require("express");
 const axios = require("axios");
-const Movi = require("./models/movies");
-const { verifyAccessToken } = require("./middleware/auth");
-const { capitalizeFirstLetter } = require("./utils/utils");
+const bodyParser = require("body-parser");
+const Movie = require("./models/movies");
+const { verifyAccessToken, roleIdentity } = require("./middleware/auth");
+const cors = require("cors");
+const { capitalizeFirstLetter, getMonth, getYear } = require("./utils/utils");
 
 const app = express();
+app.use(bodyParser.json());
+app.use(cors());
 
-app.post("/movies", verifyAccessToken, async (req, res) => {
+app.post("/movies", verifyAccessToken, roleIdentity, async (req, res) => {
   try {
     if (!req.body) {
       return res.status(400).json({ error: "No body found" });
     }
 
-    const { userId, role } = req.payload;
+    const { userId } = req.payload;
     const { movieTitle } = req.body;
+    console.log(req.payload);
 
     if (!movieTitle) {
       return res.status(400).json({ error: "Enter movi title" });
     }
 
-    const createdTime = Math.round(new Date().getTime());
-    var date = new Date(createdTime);
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-
-    if (role === "basic") {
-      let numberOfMovieCreatedPerMonth = await Movi.find({
-        userId: userId,
-        month: month,
-        year: year,
-      });
-      if (numberOfMovieCreatedPerMonth.length > 5) {
-        return res.status(400).json({
-          message: `You are a basic user, you can create only 5 movies per month`,
-        });
-      }
-    }
-
-    let moviExist = await Movi.count({
+    let moviExist = await Movie.count({
       userId: userId,
       title: capitalizeFirstLetter(movieTitle),
     });
+
     if (moviExist > 0)
       return res
         .status(400)
         .json({ message: `Already created movie with title ${movieTitle}` });
-
     const moviDetails = await axios.get(
       `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=${movieTitle}`
     );
@@ -56,19 +43,19 @@ app.post("/movies", verifyAccessToken, async (req, res) => {
 
     const { Title, Released, Genre, Director } = moviDetails.data;
 
-    const movi = new Movi({
+    const movie = new Movie({
       userId,
       title: Title,
       released: Released,
       genre: Genre,
       director: Director,
-      createdAt: createdTime,
-      month,
-      year,
+      createdAt: Math.round(new Date().getTime()),
+      month: getMonth(),
+      year: getYear(),
     });
-    await movi.save();
+    await movie.save();
 
-    res
+    return res
       .status(200)
       .json({ message: `Successfully created a movie with title ${Title}` });
   } catch (error) {
@@ -76,19 +63,15 @@ app.post("/movies", verifyAccessToken, async (req, res) => {
   }
 });
 
-app.get("/movies", verifyAccessToken, async (req, res) => {
+app.get("/movies", async (req, res) => {
   try {
     const { userId } = req.payload;
 
-    const createdMovies = await Movi.find({ userId }).sort("createdAt");
+    const createdMovies = await Movie.find({ userId }).sort("createdAt");
     res.json(createdMovies);
   } catch (error) {
     res.status(500).send(error.message);
   }
 });
-
-app.get("/test",(req,res) => {
-    return res.status(200).send({message:"success"})
-})
 
 module.exports = app;
