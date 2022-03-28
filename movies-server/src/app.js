@@ -1,10 +1,14 @@
 const express = require("express");
 const axios = require("axios");
+const bodyParser = require("body-parser");
 const Movi = require("./models/movies");
 const { verifyAccessToken } = require("./middleware/auth");
+const cors = require("cors");
 const { capitalizeFirstLetter } = require("./utils/utils");
 
 const app = express();
+app.use(bodyParser.json());
+app.use(cors());
 
 app.post("/movies", async (req, res) => {
   try {
@@ -15,18 +19,20 @@ app.post("/movies", async (req, res) => {
     // const { userId, role } = req.payload;
     const userId = "test";
     const role = "basic";
+    console.log("req", req.body);
     const { movieTitle } = req.body;
 
     if (!movieTitle) {
       return res.status(400).json({ error: "Enter movi title" });
     }
-
+    console.log("0");
     const createdTime = Math.round(new Date().getTime());
     var date = new Date(createdTime);
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
 
     if (role === "basic") {
+      console.log("1");
       let numberOfMovieCreatedPerMonth = await Movi.find({
         userId: userId,
         month: month,
@@ -47,15 +53,15 @@ app.post("/movies", async (req, res) => {
       return res
         .status(400)
         .json({ message: `Already created movie with title ${movieTitle}` });
-
+    console.log("2");
     const moviDetails = await axios.get(
-      `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=${movieTitle}`
+      `http://www.omdbapi.com/?apikey=2c46c474&t=${movieTitle}`
     );
 
     if (moviDetails.data.Response == "False") {
       return res.status(400).json({ message: "Movie not found!" });
     }
-
+    console.log("3");
     const { Title, Released, Genre, Director } = moviDetails.data;
 
     const movi = new Movi({
@@ -74,6 +80,7 @@ app.post("/movies", async (req, res) => {
       .status(200)
       .json({ message: `Successfully created a movie with title ${Title}` });
   } catch (error) {
+    console.log("5", error.message);
     return res.status(500).json({ error: error.message });
   }
 });
