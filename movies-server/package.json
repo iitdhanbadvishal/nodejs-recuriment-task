@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles",
+    "test": "jest --ci --watchAll=false",
     "test:ci": "jest",
     "start": "nodemon ./src/server.js"
   },

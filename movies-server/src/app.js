@@ -52,7 +52,6 @@ app.post("/movies", async (req, res) => {
       return res
         .status(400)
         .json({ message: `Already created movie with title ${movieTitle}` });
-
     const moviDetails = await axios.get(
       `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=${movieTitle}`
     );
@@ -75,7 +74,7 @@ app.post("/movies", async (req, res) => {
     });
     await movi.save();
 
-    res
+    return res
       .status(200)
       .json({ message: `Successfully created a movie with title ${Title}` });
   } catch (error) {
