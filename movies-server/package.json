@@ -9,9 +9,10 @@
     "start": "nodemon ./src/server.js"
   },
   "jest": {
+    "preset": "ts-jest",
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
-      "./src/test/setup.js"
+      "./src/test/setup.ts"
     ]
   },
   "keywords": [],
@@ -30,11 +31,10 @@
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@types/supertest": "^2.0.12",
-    "@shelf/jest-mongodb": "^1.1.0",
     "jest": "^27.5.1",
     "mongodb-memory-server": "^8.4.1",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.2",
-    "node-nats-streaming": "^0.3.2"
+    "ts-jest": "^27.0.2"
   }
 }
