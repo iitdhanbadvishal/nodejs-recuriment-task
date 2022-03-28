@@ -1,12 +1,9 @@
-const request = require('supertest');
-const app = require('../src/app');
+const request = require("supertest");
+const app = require("../src/app");
 
-describe("get /test", () => {
-    describe("testing the test", () => {
-        
-        test("response from test", async () => {
-            const response = await request(app).get("/test");
-            expect(response.status).toBe(200);
-        })
-    })
-})
+it("Return 200 with successfull movie creation with given title", async () => {
+  return request(app)
+    .post("/movies")
+    .send({ movieTitle: "no entry" })
+    .expect(200);
+});

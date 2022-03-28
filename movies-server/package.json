@@ -4,9 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test:ci": "jest",
-    "start": "nodemon ./src/server.js./src/server.js"
+    "start": "nodemon ./src/server.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.js"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -26,7 +32,8 @@
     "@types/supertest": "^2.0.12",
     "jest": "^27.5.1",
     "mongodb-memory-server": "^8.4.1",
+    "nodemon": "^2.0.15",
     "supertest": "^6.2.2",
-    "nodemon": "^2.0.15"
+    "ts-jest": "^27.0.2"
   }
 }
