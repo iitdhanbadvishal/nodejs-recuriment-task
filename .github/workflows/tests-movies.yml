@@ -10,3 +10,4 @@ jobs:
       - run: cd movies-server && npm install && npm run test:ci
         env:
           API_KEY: ${{ secrets.API_KEY }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}

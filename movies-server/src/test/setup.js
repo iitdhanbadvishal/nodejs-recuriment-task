@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 let mongo = "";
 beforeAll(async () => {
-  process.env.JWT_SECRET = "abc";
+  // process.env.JWT_SECRET = "abc";
   // process.env.API_KEY = "2c46c474";
 
   mongo = await MongoMemoryServer.create();
