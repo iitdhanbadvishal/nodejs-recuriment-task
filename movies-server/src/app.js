@@ -33,7 +33,7 @@ app.post("/movies", verifyAccessToken, roleIdentity, async (req, res) => {
       return res
         .status(400)
         .json({ message: `Already created movie with title ${movieTitle}` });
-
+    console.log("[[[[[[", process.env.API_KEY);
     const moviDetails = await axios.get(
       `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=${movieTitle}`
     );
